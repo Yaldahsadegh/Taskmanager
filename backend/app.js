@@ -1,9 +1,14 @@
 import express from "express";
 import "dotenv/config";
+import cors from "cors";
 import db from "./db/db.js";
+import taskRouter from "./controllers/task_controller.js";
 
 const app = express();
 const port = process.env.PORT;
+
+app.use(cors());
+app.use("/task", taskRouter);
 
 db.connect()
   .then(() => {
