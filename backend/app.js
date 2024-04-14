@@ -1,15 +1,15 @@
 import express from "express";
 import "dotenv/config";
+import db from "./db/db.js";
 
 const app = express();
 const port = process.env.PORT;
 
-app.listen(port, () => {
-  console.log(`server running on port ${port}`);
-});
-
-/*
-git remote add origin https://github.com/Yaldahsadegh/Taskmanager.git
-git branch -M main
-git push -u origin main
-*/
+db.connect()
+  .then(() => {
+    console.log("DB connected !");
+    app.listen(port, () => {
+      console.log(`server running on port ${port}`);
+    });
+  })
+  .catch((err) => console.log(err));
