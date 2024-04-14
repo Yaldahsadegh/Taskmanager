@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { createTask } from "../services/task_service.js";
+import { createTask, allTasks } from "../services/task_service.js";
 
 const taskRouter = express.Router();
 taskRouter.use(bodyParser.urlencoded({ extended: false }));
@@ -12,6 +12,19 @@ taskRouter.post("/create", async (req, res) => {
     const task = await createTask(name, content, startdate, enddate, status);
     res.status(200).json({
       message: "success",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//API FOR home TASK
+taskRouter.get("/all", async (req, res) => {
+  try {
+    const tasks = await allTasks();
+    res.status(200).json({
+      message: "success",
+      allTasks: tasks.rows,
     });
   } catch (error) {
     console.log(error);
