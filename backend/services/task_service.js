@@ -16,3 +16,9 @@ export const allTasks = async () => {
   const res = await db.query("SELECT * FROM task");
   return res;
 };
+
+//VIEW TASK SQL
+export const viewTasks = async (taskId) => {
+  const res = await db.query(`SELECT * FROM task WHERE task.id = ${taskId}`);
+  return res;
+};
