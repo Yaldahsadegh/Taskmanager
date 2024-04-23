@@ -36,10 +36,16 @@ taskRouter.get("/:id", async (req, res) => {
   try {
     const taskId = req.params.id;
     const task = await viewTasks(taskId);
-    res.status(200).json({
-      message: "success",
-      task: task.rows,
-    });
+    if (task.rowCount > 0) {
+      res.status(200).json({
+        message: "success",
+        task: task.rows,
+      });
+    } else {
+      res.status(200).json({
+        message: "false",
+      });
+    }
   } catch (error) {
     console.log(error);
   }
