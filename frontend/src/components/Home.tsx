@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   interface Task {
@@ -35,7 +36,9 @@ const Home = () => {
                 <Card.Body>
                   <Card.Title>{task.name}</Card.Title>
                   <Card.Text>{task.content}</Card.Text>
-                  <Button variant="primary">View</Button>
+                  <Link to={`/view/${task.id}`}>
+                    <Button variant="primary">View</Button>
+                  </Link>
                 </Card.Body>
               </Card>
             ))
