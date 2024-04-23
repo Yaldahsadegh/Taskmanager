@@ -14,6 +14,15 @@ const TaskView = () => {
     status: number;
   }
 
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:4000/task/${params.id}`)
+      .then((response) => {
+        console.log(response);
+        setTask(null);
+      })
+      .catch((err) => console.log(err));
+  };
   const params = useParams();
   const [task, setTask] = useState<Task | null>(null);
 
@@ -25,7 +34,7 @@ const TaskView = () => {
         setTask(response.data.task[0]);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [params.id]);
 
   return (
     <Container>
@@ -52,7 +61,9 @@ const TaskView = () => {
               Edit
             </Button>
 
-            <Button variant="danger">Delete</Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
           </Card.Body>
         </Card>
       ) : (
