@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "react-bootstrap";
+import { Button, Container, Card } from "react-bootstrap";
 
 const Home = () => {
   interface Task {
@@ -27,20 +27,23 @@ const Home = () => {
   }, []);
   return (
     <div>
-      Home
-      <div>
-        {tasks ? (
-          tasks.map((task, i) => (
-            <div key={i}>
-              <p>{task.name}</p>
-              <p>{task.content}</p>
-            </div>
-          ))
-        ) : (
-          <div>No data to display</div>
-        )}
-      </div>
-      <Button variant="primary">Primary</Button>
+      <Container>
+        <div>
+          {tasks ? (
+            tasks.map((task, i) => (
+              <Card style={{ width: "18rem" }} key={i} className="mt-3">
+                <Card.Body>
+                  <Card.Title>{task.name}</Card.Title>
+                  <Card.Text>{task.content}</Card.Text>
+                  <Button variant="primary">View</Button>
+                </Card.Body>
+              </Card>
+            ))
+          ) : (
+            <div>No data to display</div>
+          )}
+        </div>
+      </Container>
     </div>
   );
 };
