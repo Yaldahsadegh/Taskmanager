@@ -22,3 +22,9 @@ export const viewTasks = async (taskId) => {
   const res = await db.query(`SELECT * FROM task WHERE task.id = ${taskId}`);
   return res;
 };
+
+//DELETE TASK SQL
+export const deleteTasks = async (taskId) => {
+  const res = await db.query(`DELETE FROM task WHERE task.id = ${taskId}`);
+  return res;
+};
