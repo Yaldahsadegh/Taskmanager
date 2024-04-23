@@ -30,11 +30,29 @@ const TaskView = () => {
   return (
     <Container>
       {task ? (
-        <Card style={{ width: "18rem" }}>
+        <Card style={{ width: "18rem" }} className="mt-3">
           <Card.Body>
             <Card.Title>{task.name}</Card.Title>
             <Card.Text>{task.content}</Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Card.Text>{task.startdate}</Card.Text>
+            <Card.Text>{task.enddate}</Card.Text>
+            <Card.Text>
+              {task &&
+                (task.status === 1
+                  ? "New Task"
+                  : task.status === 2
+                  ? "In Process"
+                  : task.status === 3
+                  ? "Task Completed"
+                  : task.status === 4
+                  ? "Task Canceled"
+                  : "Unknown Status")}
+            </Card.Text>
+            <Button variant="warning" className="me-1">
+              Edit
+            </Button>
+
+            <Button variant="danger">Delete</Button>
           </Card.Body>
         </Card>
       ) : (
