@@ -5,6 +5,7 @@ import CreateTask from "./components/CreateTask";
 import Navigation from "./components/Navigation";
 import TaskView from "./components/TaskView";
 import UpdateTask from "./components/UpdateTask";
+import AllTasks from "./components/AllTasks";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/create" element={<CreateTask />}></Route>
           <Route path="/update/:id" element={<UpdateTask />}></Route>
+          <Route path="/all" element={<AllTasks />}></Route>
           <Route path="/view/:id" element={<TaskView />}></Route>
         </Routes>
       </BrowserRouter>

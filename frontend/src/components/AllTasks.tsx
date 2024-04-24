@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const AllTasks = () => {
   interface Task {
     id: number;
     name: string;
@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     //API END POINT
     axios
-      .get("http://localhost:4000/task/home")
+      .get("http://localhost:4000/task/all")
       .then((response) => {
         console.log(response.data.allTasks);
         setTasks(response.data.allTasks as Task[]);
@@ -51,4 +51,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AllTasks;

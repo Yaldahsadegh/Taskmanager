@@ -28,6 +28,7 @@ const UpdateTask = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  const params = useParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ const UpdateTask = () => {
     //Making a query string
     const data = qs.stringify(formData);
     axios
-      .post("http://localhost:4000/task/create", data)
+      .patch(`http://localhost:4000/task/update/${params.id}`, data)
       .then((response) => {
         console.log(response.data);
       })
@@ -54,8 +55,6 @@ const UpdateTask = () => {
       setMessage("");
     }, 3000);
   };
-
-  const params = useParams();
 
   useEffect(() => {
     axios
@@ -108,7 +107,7 @@ const UpdateTask = () => {
             <Form.Group className="mb-3">
               <Form.Label>Status</Form.Label>
               <Form.Select
-                name="staus"
+                name="status"
                 value={formData.status}
                 onChange={handleInput}
               >

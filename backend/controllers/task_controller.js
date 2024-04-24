@@ -5,6 +5,8 @@ import {
   allTasks,
   viewTasks,
   deleteTasks,
+  updateTask,
+  homeTasks,
 } from "../services/task_service.js";
 
 const taskRouter = express.Router();
@@ -23,10 +25,23 @@ taskRouter.post("/create", async (req, res) => {
   }
 });
 
-//API FOR home TASK
+//API FOR all TASKS
 taskRouter.get("/all", async (req, res) => {
   try {
     const tasks = await allTasks();
+    res.status(200).json({
+      message: "success",
+      allTasks: tasks.rows,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//API FOR home TASK
+taskRouter.get("/home", async (req, res) => {
+  try {
+    const tasks = await homeTasks();
     res.status(200).json({
       message: "success",
       allTasks: tasks.rows,
@@ -71,6 +86,27 @@ taskRouter.delete("/:id", async (req, res) => {
         message: "false",
       });
     }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//API FOR UPDATE TASK
+taskRouter.patch("/update/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, content, startdate, enddate, status } = req.body;
+    const task = await updateTask(
+      id,
+      name,
+      content,
+      startdate,
+      enddate,
+      status
+    );
+    res.status(200).json({
+      message: "success",
+    });
   } catch (error) {
     console.log(error);
   }
