@@ -5,21 +5,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form, Card, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 
-const CreateTask = () => {
+const UpdateTask = () => {
   //FORM DATA ONCE PAGE LOAD
   const defaultFormData = {
     name: "",
     content: "",
     startdate: "",
     enddate: "",
-    status: 1,
+    status: "",
   };
 
   const [formData, setFormData] = useState(defaultFormData); // FORM DATA
   const [message, setMessage] = useState(""); // MESSAGE TO USER
 
   const handleInput = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData((prevSate) => ({
       ...prevSate,
@@ -59,7 +61,16 @@ const CreateTask = () => {
     axios
       .get(`http://localhost:4000/task/${params.id}`)
       .then((response) => {
-        console.log(response.data.task[0]);
+        const taskData = response.data.task[0];
+
+        const startDate = taskData.startdate.split("T")[0];
+        const endDate = taskData.enddate.split("T")[0];
+
+        setFormData({
+          ...taskData,
+          startdate: startDate,
+          enddate: endDate,
+        });
       })
       .catch((err) => console.log(err));
   }, []);
@@ -96,7 +107,11 @@ const CreateTask = () => {
 
             <Form.Group className="mb-3">
               <Form.Label>Status</Form.Label>
-              <Form.Select>
+              <Form.Select
+                name="staus"
+                value={formData.status}
+                onChange={handleInput}
+              >
                 <option value="1">New</option>
                 <option value="2">In Process</option>
                 <option value="3">Completed</option>
@@ -144,4 +159,4 @@ const CreateTask = () => {
   );
 };
 
-export default CreateTask;
+export default UpdateTask;
