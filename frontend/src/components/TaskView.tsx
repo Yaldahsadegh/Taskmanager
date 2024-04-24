@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const TaskView = () => {
   interface Task {
@@ -57,9 +58,12 @@ const TaskView = () => {
                   ? "Task Canceled"
                   : "Unknown Status")}
             </Card.Text>
-            <Button variant="warning" className="me-1">
-              Edit
-            </Button>
+            <Link to={`/update/${task.id}`}>
+              {" "}
+              <Button variant="warning" className="me-1">
+                Edit
+              </Button>
+            </Link>
 
             <Button variant="danger" onClick={handleDelete}>
               Delete
