@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import qs from "qs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form, Card, Container, Alert } from "react-bootstrap";
+import axios from "axios";
 
 const CreateTask = () => {
   //FORM DATA ONCE PAGE LOAD
@@ -34,6 +35,14 @@ const CreateTask = () => {
     }
     console.log("submit done");
     console.log(formData);
+    //Making a query string
+    const data = qs.stringify(formData);
+    axios
+      .post("http://localhost:4000/task/create", data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err));
     setMessage("Task added successfully!");
     setFormData(defaultFormData);
 
