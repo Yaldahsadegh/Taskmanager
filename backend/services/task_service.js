@@ -54,3 +54,27 @@ export const updateTask = async (
   );
   return res;
 };
+
+//NEW TASK COUNT SQL
+export const newTasksCount = async () => {
+  const res = await db.query(
+    "SELECT COUNT(*) AS taskcount FROM task WHERE status = 1;"
+  );
+  return res;
+};
+
+//INPROGRESS TASK COUNT SQL
+export const inProcessTasksCount = async () => {
+  const res = await db.query(
+    "SELECT COUNT(*) AS taskcount FROM task WHERE status = 2;"
+  );
+  return res;
+};
+
+//COMPLETED TASK COUNT SQL
+export const completedTasksCount = async () => {
+  const res = await db.query(
+    "SELECT COUNT(*) AS taskcount FROM task WHERE status = 3;"
+  );
+  return res;
+};

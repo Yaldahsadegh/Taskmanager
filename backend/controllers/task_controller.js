@@ -7,6 +7,9 @@ import {
   deleteTasks,
   updateTask,
   homeTasks,
+  newTasksCount,
+  inProcessTasksCount,
+  completedTasksCount,
 } from "../services/task_service.js";
 
 const taskRouter = express.Router();
@@ -106,6 +109,39 @@ taskRouter.patch("/update/:id", async (req, res) => {
     );
     res.status(200).json({
       message: "success",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//API FOR statistics
+taskRouter.get("/status/count", async (req, res) => {
+  try {
+    const newTask = await newTasksCount();
+    const inProcessTask = await inProcessTasksCount();
+    const completedTask = await completedTasksCount();
+
+    const responseObj = {
+      newtask: newTask.rows[0].taskcount,
+      inprocessTask: inProcessTask.rows[0].taskcount,
+      completedTask: completedTask.rows[0].taskcount,
+    };
+
+    // Mapping over the response object and transforming it into the desired format
+    const formattedData = Object.entries(responseObj).map(
+      ([status, userGain]) => ({
+        status:
+          status === "newtask"
+            ? "New"
+            : status === "inprocessTask"
+            ? "In Process"
+            : "Completed",
+        userGain: parseInt(userGain), // Convert string to number
+      })
+    );
+    res.status(200).json({
+      data: formattedData,
     });
   } catch (error) {
     console.log(error);
