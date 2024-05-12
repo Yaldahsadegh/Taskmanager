@@ -44,7 +44,7 @@ const Home = () => {
     axios
       .get("http://localhost:4000/task/status/count")
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -52,31 +52,30 @@ const Home = () => {
   return (
     <div>
       <Container>
-        <div>
-          {tasks ? (
-            tasks.map((task, i) => (
-              <Card style={{ width: "18rem" }} key={i} className="mt-3">
-                <Card.Body>
-                  <Card.Title>{task.name}</Card.Title>
-                  <Card.Text>{task.content}</Card.Text>
-                  <Link to={`/view/${task.id}`}>
-                    <Button variant="primary">View</Button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            ))
-          ) : (
-            <div>No data to display</div>
-          )}
-        </div>
-        <Card style={{ width: "18rem" }}>
-          <Card.Body>
-            <Card.Title>Statistics</Card.Title>
-          </Card.Body>
-          <div className="pie" style={{ width: 300 }}>
-            <PieChart chartData={userData} />
+        <div className="row">
+          <div className="col">
+            {tasks ? (
+              tasks.map((task, i) => (
+                <Card key={i} className="mt-3">
+                  <Card.Body>
+                    <Card.Title>{task.name}</Card.Title>
+                    <Card.Text>{task.content}</Card.Text>
+                    <Link to={`/view/${task.id}`}>
+                      <Button variant="primary">View</Button>
+                    </Link>
+                  </Card.Body>
+                </Card>
+              ))
+            ) : (
+              <div>No data to display</div>
+            )}
           </div>
-        </Card>
+          <div className="col">
+            <Card style={{ width: "18rem" }}>
+              <PieChart />
+            </Card>
+          </div>
+        </div>
       </Container>
     </div>
   );

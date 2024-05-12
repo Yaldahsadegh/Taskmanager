@@ -127,21 +127,9 @@ taskRouter.get("/status/count", async (req, res) => {
       inprocessTask: inProcessTask.rows[0].taskcount,
       completedTask: completedTask.rows[0].taskcount,
     };
-
-    // Mapping over the response object and transforming it into the desired format
-    const formattedData = Object.entries(responseObj).map(
-      ([status, userGain]) => ({
-        status:
-          status === "newtask"
-            ? "New"
-            : status === "inprocessTask"
-            ? "In Process"
-            : "Completed",
-        userGain: parseInt(userGain), // Convert string to number
-      })
-    );
     res.status(200).json({
-      data: formattedData,
+      sucess: true,
+      data: responseObj,
     });
   } catch (error) {
     console.log(error);
